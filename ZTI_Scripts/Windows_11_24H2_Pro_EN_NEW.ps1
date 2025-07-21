@@ -39,6 +39,7 @@ $Global:MyOSDCloud = [ordered]@{
     SetTimeZone = [bool]$true
     ShutdownSetupComplete = [bool]$false
     SyncMSUpCatDriverUSB = [bool]$true
+    updateFirmware = [bool]$true
     CheckSHA1 = [bool]$true
 }
 
@@ -49,6 +50,14 @@ if ($DriverPack){
     $Global:MyOSDCloud.DriverPackName = $DriverPack.Name
 }
 
+#Enable HPIA | Update HP BIOS | Update HP TPM
+if (Test-HPIASupport){
+    #$Global:MyOSDCloud.DevMode = [bool]$True
+    $Global:MyOSDCloud.HPTPMUpdate = [bool]$True
+    $Global:MyOSDCloud.HPIAALL = [bool]$true
+    $Global:MyOSDCloud.HPBIOSUpdate = [bool]$true
+
+}
 
 #write variables to console
 $Global:MyOSDCloud
