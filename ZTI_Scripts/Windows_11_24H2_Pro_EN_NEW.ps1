@@ -13,10 +13,8 @@ Write-Host  -ForegroundColor Green "Importing OSD PowerShell Module"
 Import-Module OSD -Force   
 
 #=======================================================================
-#   [OSDCloud] Params
+#   [OSDCloud] Global Variables and Parameters
 #=======================================================================
-
-$Product = (Get-MyComputerProduct)
 
 $Params = @{
     OSVersion = "Windows 11"
@@ -27,6 +25,9 @@ $Params = @{
     ZTI = $true
     Firmware = $true
 }
+
+
+$Product = (Get-MyComputerProduct)
 
 $Global:MyOSDCloud = [ordered]@{
     Restart = [bool]$False
@@ -42,24 +43,20 @@ $Global:MyOSDCloud = [ordered]@{
 }
 
 #Used to Determine Driver Pack
-$DriverPack = Get-OSDCloudDriverPack -Product $Product -OSVersion $OSVersion -OSReleaseID $OSReleaseID
+$DriverPack = Get-OSDCloudDriverPack -Product $Product -OSVersion $Params.OSVersion -OSReleaseID $Parms.OSBuild
 
 if ($DriverPack){
     $Global:MyOSDCloud.DriverPackName = $DriverPack.Name
 }
 
+
+#write variables to console
+$Global:MyOSDCloud
+
 #=======================================================================
-#   [OS] Params and Start-OSDCloud
+#   [OS] Start-OSDCloud
 #=======================================================================
-$Params = @{
-    OSVersion = "Windows 11"
-    OSBuild = "24H2"
-    OSEdition = "Pro"
-    OSLanguage = "en-us"
-    OSLicense = "Retail"
-    ZTI = $true
-    Firmware = $true
-}
+
 Start-OSDCloud @Params
 
 #================================================
