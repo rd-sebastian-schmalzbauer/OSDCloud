@@ -99,7 +99,7 @@ Set Path = %PATH%;C:\Program Files\WindowsPowerShell\Scripts
 Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/rd-sebastian-schmalzbauer/OSDCloud/refs/heads/main/Scripts/Cleanup.ps1
 Start /Wait PowerShell -NoL -C Restart-Computer -Force
 '@
-$OOBECMD | Out-File -FilePath 'C:\Windows\System32\OOBE.cmd' -Encoding ascii -Force
+$OOBECMD | Out-File -FilePath 'C:\Windows\System32\Scripts\OOBE.cmd' -Encoding ascii -Force
 
 #=======================================================================
 #   Restart-Computer
