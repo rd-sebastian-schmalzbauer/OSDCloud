@@ -52,9 +52,11 @@ if ($DriverPack){
 
 #Enable HPIA | Update HP BIOS | Update HP TPM
 if (Test-HPIASupport){
+    Write-SectionHeader -Message "Detected HP Device, Enabling HPIA, HP BIOS and HP TPM Updates"
     #$Global:MyOSDCloud.DevMode = [bool]$True
     $Global:MyOSDCloud.HPTPMUpdate = [bool]$True
-    $Global:MyOSDCloud.HPIAALL = [bool]$true
+    if ($Product -ne '83B2' -and $Model -notmatch "zbook"){$Global:MyOSDCloud.HPIAALL = [bool]$true} #I've had issues with this device and HPIA
+    #{$Global:MyOSDCloud.HPIAALL = [bool]$true}
     $Global:MyOSDCloud.HPBIOSUpdate = [bool]$true
 
 }
@@ -94,7 +96,7 @@ Write-Host -ForegroundColor Green "Create C:\Windows\System32\Scripts\OOBE.cmd"
 $OOBECMD = @'
 PowerShell -NoL -Com Set-ExecutionPolicy RemoteSigned -Force
 Set Path = %PATH%;C:\Program Files\WindowsPowerShell\Scripts
-Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://cleanup.osdcloud.ch
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/rd-sebastian-schmalzbauer/OSDCloud/refs/heads/main/Scripts/Cleanup.ps1
 Start /Wait PowerShell -NoL -C Restart-Computer -Force
 '@
 $OOBECMD | Out-File -FilePath 'C:\Windows\System32\OOBE.cmd' -Encoding ascii -Force
