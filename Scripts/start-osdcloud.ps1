@@ -1,7 +1,7 @@
 Add-Type -AssemblyName PresentationFramework
 
 [xml]$xaml = @"
-<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Title="OSDCloud Menu" Height="400" Width="400">
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Title="OSDCloud Menu" Height="300" Width="400">
   <StackPanel Margin="20">
     <TextBlock Text="OSDCloud Main Menu" FontSize="20" Foreground="DarkOrange" HorizontalAlignment="Center" Margin="0,0,0,20"/>
     <Button Name="btnZeroTouch" Content="Zero-Touch Installation" Height="40" Margin="0,0,0,10"/>
